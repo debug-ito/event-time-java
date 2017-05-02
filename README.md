@@ -1,6 +1,9 @@
 
 # EventTime = LocalDate | ZonedDateTime
 
+**This project is now under development.**
+
+
 `EventTime` is a simple, concrete Java class that represents either `java.time.LocalDate` or `java.time.ZonedDateTime`, i.e. it's a sum (or union) type of the two back-end types.
 
 `EventTime` roughly models how we, humans, think about dates and times for upcoming events, like when you use a calendar app or manually hack iCalendar ([RFC 5545](https://tools.ietf.org/html/rfc5545)) files.
