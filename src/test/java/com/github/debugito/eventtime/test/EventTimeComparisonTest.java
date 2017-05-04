@@ -1,18 +1,20 @@
 package com.github.debugito.eventtime.test;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import java.time.ZoneId;
 
 import com.github.debugito.eventtime.EventTime;
 
 public class EventTimeComparisonTest {
-    public static EventTime et(int year, int month, int day_of_month) {
-        return new EventTime(year, month, day_of_month);
+    public static EventTime et(int year, int month, int day_of_month, String zone_id) {
+        return new EventTime(year, month, day_of_month, ZoneId.of(zone_id));
     }
 
     public static EventTime et(int year, int month, int day_of_month,
                                int hour, int minute, int second, int nanosecond,
                                String zone_id) {
-        return new EventTime(year, month, day_of_month, hour, minute, second, nanosecond, zone_id);
+        return new EventTime(year, month, day_of_month, hour, minute, second, nanosecond,
+                             ZoneId.of(zone_id));
     }
 
     public void testSingle(EventTime a, EventTime b, int exp_sign) {
@@ -37,11 +39,20 @@ public class EventTimeComparisonTest {
 
     @Test
     public void testComparisons() {
-        test(et(2017,10,11), et(2017,10,11), 0);
-        test(et(2017,10,11,8,13,34,0,"+0900"), et(2017,10,11,8,13,34,0,"+0900"), 0);
+        test(et(2017,4,26,"+09:00"), et(2017,4,26,"+09:00"), 0);
+        test(et(2017,4,26,"+09:00"), et(2017,4,26,"JST"), 0);
+        test(et(2017,4,26,8,13,34,0,"+09:00"), et(2017,4,26,8,13,34,0,"+09:00"), 0);
+        test(et(2017,4,26,8,13,34,0,"+09:00"), et(2017,4,26,8,13,34,0,"JST"), 0);
+        test(et(2017,4,26,8,13,34,0,"+09:00"), et(2017,4,25,23,13,34,0,"Z"), 0);
 
-        test(et(2017,10,10), et(2017,10,9), 1);
-        test(et(2017,10,10), et(2017,3,30), 1);
-        test(et(2017,10,10), et(2020,8,15), 1);
+        test(et(2017,5,10,"+09:00"), et(2017,5,9, "+09:00"), 1);
+        test(et(2017,5,10,"Z"), et(2017,5,10,"+09:00"), 1);
+        test(et(2017,5,3,18,6,23,123,"+09:00"), et(2017,5,3,18,6,0,589,"+09:00"), 1);
+        test(et(2017,5,3,18,6,23,123,"Z"), et(2017,5,3,18,6,23,123,"+09:00"), 1);
+        
+        test(et(2017,7,1,0,0,0,0,"+09:00"), et(2017,5,10,"+09:00"), 1);
+        test(et(2017,5,10,10,4,0,0,"+09:00"), et(2017,5,10,"+09:00"), 1);
+        test(et(2017,5,10,0,0,0,0,"+09:00"), et(2017,5,10,"+09:00"), 1);
+        test(et(2017,5,9,15,0,0,0,"Z"), et(2017,5,10,"+09:00"), 1);
     }
 }
