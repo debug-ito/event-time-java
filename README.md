@@ -1,20 +1,22 @@
 
-# EventTime = LocalDate | ZonedDateTime
+# EventTime = ZonedDateTime × isTimeExplicit
 
 **This project is now under development.**
 
+`EventTime` is a simple, concrete and immutable Java class that is essentially a `java.time.ZonedDateTime` with a flag that indicates if the time part is explicit or not.
 
-`EventTime` is a simple, concrete Java class that represents either `java.time.LocalDate` or `java.time.ZonedDateTime`, i.e. it's a sum (or union) type of the two back-end types.
-
-`EventTime` roughly models how we, humans, think about dates and times for upcoming events, like when you use a calendar app or manually hack iCalendar ([RFC 5545](https://tools.ietf.org/html/rfc5545)) files.
+If `isTimeExplicit` flag is `false`, i.e. the time part is not given to a constructor, the time part is initialized to "00:00:00".
 
 ## Parsing and formatting
 
 TBW. It supports ISO8601, with some extension.
 
-## Equality and comparison
+## Comparison and equality
 
-TBW.
+`compareTo` method first compares `java.time.Instance`s obtained from the `ZonedDateTime` parts of the two `EventTime` instances. Ties are broken by comparing the `isTimeExplicit` flags (flag `true` is bigger than `false`.)
+
+`equals` method is consistent with `compareTo`. This means there are multiple `EventTime` instances with different time zones that equal to each other.
+
 
 # License
 
