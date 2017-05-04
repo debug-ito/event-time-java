@@ -1,22 +1,11 @@
 package com.github.debugito.eventtime.test;
 import static org.junit.Assert.assertEquals;
+import static com.github.debugito.eventtime.test.Util.et;
 import org.junit.Test;
-import java.time.ZoneId;
 
 import com.github.debugito.eventtime.EventTime;
 
 public class EventTimeComparisonTest {
-    public static EventTime et(int year, int month, int day_of_month, String zone_id) {
-        return new EventTime(year, month, day_of_month, ZoneId.of(zone_id));
-    }
-
-    public static EventTime et(int year, int month, int day_of_month,
-                               int hour, int minute, int second, int nanosecond,
-                               String zone_id) {
-        return new EventTime(year, month, day_of_month, hour, minute, second, nanosecond,
-                             ZoneId.of(zone_id));
-    }
-
     public void testSingle(EventTime a, EventTime b, int exp_sign) {
         int got_cmp = a.compareTo(b);
         boolean got_eq = a.equals(b);
