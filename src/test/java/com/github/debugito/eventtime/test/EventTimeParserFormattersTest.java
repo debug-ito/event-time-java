@@ -26,6 +26,6 @@ public class EventTimeParserFormattersTest {
         testP("2016-07-31T22:10:08.405Z", et(2016,7,31,22,10,8,405000000,"Z"));
         testP("2007-12-03T10:15:30+01:00[Europe/Paris]", et(2007,12,3,10,15,30,0,"Europe/Paris"));
         testP("2015-06-11T00:14:09.045+09:00[Asia/Tokyo]", et(2015,6,11,0,14,9,45000000,"Asia/Tokyo"));
-        testP("2016-10-11T09:40:12[Asia/Tokyo]", et(2016,10,11,9,40,12,"Asia/Tokyo"));
+        testP("2016-10-11T09:40:12[Asia/Tokyo]", et(2016,10,11,9,40,12,0,"Asia/Tokyo"));
     }
 }
