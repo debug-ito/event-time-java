@@ -1,5 +1,6 @@
 package com.github.debugito.eventtime.test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 import static com.github.debugito.eventtime.test.Util.et;
 import org.junit.Test;
 
@@ -10,14 +11,14 @@ public class EventTimeComparisonTest {
         int got_cmp = a.compareTo(b);
         boolean got_eq = a.equals(b);
         if(exp_sign == 0) {
-            assertEquals(got_cmp, 0);
-            assertEquals(got_eq, true);
+            assertThat(got_cmp, is(0));
+            assertThat(got_eq, is(true));
         }else if(exp_sign < 0) {
-            assertEquals(got_cmp < 0, true);
-            assertEquals(got_eq, false);
+            assertThat(got_cmp < 0, is(true));
+            assertThat(got_eq, is(false));
         }else {
-            assertEquals(got_cmp > 0, true);
-            assertEquals(got_eq, false);
+            assertThat(got_cmp > 0, is(true));
+            assertThat(got_eq, is(false));
         }
     }
     

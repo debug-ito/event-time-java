@@ -1,5 +1,6 @@
 package com.github.debugito.eventtime.test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 import static com.github.debugito.eventtime.test.Util.et;
 import org.junit.Test;
 
@@ -8,11 +9,11 @@ import com.github.debugito.eventtime.EventTime;
 public class EventTimeParserFormattersTest {
     public static void testP(String input, EventTime exp_etime) {
         EventTime got = EventTime.parse(input);
-        assertEquals(got, exp_etime);
-        assertEquals(got.getZonedDateTime(), exp_etime.getZonedDateTime());
-        assertEquals(got.isTimeExplicit(), exp_etime.isTimeExplicit());
-        assertEquals(got.isTimeZoneExplicit(), exp_etime.isTimeZoneExplicit());
-        assertEquals(got.getZonedDateTime().getZone(), exp_etime.getZonedDateTime().getZone());
+        assertThat(got, is(exp_etime));
+        assertThat(got.getZonedDateTime(), is(exp_etime.getZonedDateTime()));
+        assertThat(got.isTimeExplicit(), is(exp_etime.isTimeExplicit()));
+        assertThat(got.isTimeZoneExplicit(), is(exp_etime.isTimeZoneExplicit()));
+        assertThat(got.getZonedDateTime().getZone(), is(exp_etime.getZonedDateTime().getZone()));
     }
 
     @Test
@@ -32,7 +33,7 @@ public class EventTimeParserFormattersTest {
     }
 
     public static void testF(EventTime etime, String exp_output) {
-        assertEquals(etime.toString(), exp_output);
+        assertThat(etime.toString(), is(exp_output));
     }
 
     @Test

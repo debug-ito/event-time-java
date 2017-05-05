@@ -1,5 +1,6 @@
 package com.github.debugito.eventtime.test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 import static com.github.debugito.eventtime.test.Util.et;
 import org.junit.Test;
 import java.time.ZonedDateTime;
@@ -19,10 +20,10 @@ public class EventTimeAccessorsTest {
 
     public static void test(EventTime etime, ZonedDateTime exp_zdt, boolean exp_is_time_explicit,
                             boolean exp_is_time_zone_explicit) {
-        assertEquals(etime.getZonedDateTime(), exp_zdt);
-        assertEquals(etime.getZonedDateTime().getZone(), exp_zdt.getZone());
-        assertEquals(etime.isTimeExplicit(), exp_is_time_explicit);
-        assertEquals(etime.isTimeZoneExplicit(), exp_is_time_zone_explicit);
+        assertThat(etime.getZonedDateTime(), is(exp_zdt));
+        assertThat(etime.getZonedDateTime().getZone(), is(exp_zdt.getZone()));
+        assertThat(etime.isTimeExplicit(), is(exp_is_time_explicit));
+        assertThat(etime.isTimeZoneExplicit(), is(exp_is_time_zone_explicit));
     }
 
     @Test
