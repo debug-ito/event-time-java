@@ -4,20 +4,25 @@ import java.time.ZoneId;
 import java.io.Serializable;
 
 public class EventTime implements Comparable<EventTime>, Serializable {
+    private ZonedDateTime zdt;
+    private boolean is_time_explicit;
+    private boolean is_time_zone_explicit;
+    
     /**
      * Create an EventTime with non-explicit time part. If `time_zone`
      * is `null`, the system default (`ZoneId.systemDefault()`) is
      * used instead. 
      */
     public EventTime(int year, int month, int day, ZoneId time_zone) {
-        // TODO
+        this(year, month, day, 0, 0, 0, 0, time_zone);
+        is_time_explicit = false;
     }
 
     /**
      * Alias for `EventTime(year, month, day, null)`
      */
     public EventTime(int year, int month, int day) {
-        // TODO
+        this(year, month, day, null);
     }
 
     /**
@@ -27,7 +32,14 @@ public class EventTime implements Comparable<EventTime>, Serializable {
      */
     public EventTime(int year, int month, int day,
                      int hour, int minute, int second, int nanosecond, ZoneId time_zone) {
-        // TODO
+        if(time_zone == null) {
+            time_zone = ZoneId.systemDefault();
+            is_time_zone_explicit = false;
+        }else {
+            is_time_zone_explicit = true;
+        }
+        zdt = ZonedDateTime.of(year, month, day, hour, minute, second, nanosecond, time_zone);
+        is_time_explicit = true;
     }
 
     /**
@@ -35,7 +47,7 @@ public class EventTime implements Comparable<EventTime>, Serializable {
      */
     public EventTime(int year, int month, int day,
                      int hour, int minute, int second, int nanosecond) {
-        // TODO
+        this(year, month, day, hour, minute, second, nanosecond, null);
     }
  
     /**
@@ -43,19 +55,16 @@ public class EventTime implements Comparable<EventTime>, Serializable {
      * time zone are both considered explicit. `zdt` must be non-null.
      */
     public EventTime(ZonedDateTime zdt) {
-        // TODO
-    }
-
-    private EventTime(ZonedDateTime zdt, boolean is_time_explicit) {
-        // TODO
+        this.zdt = zdt;
+        is_time_explicit = true;
+        is_time_zone_explicit = true;
     }
 
     /**
      * Get the `ZonedDateTime` part.
      */
     public ZonedDateTime getZonedDateTime() {
-        // TODO
-        return null;
+        return zdt;
     }
 
     /**
@@ -63,8 +72,7 @@ public class EventTime implements Comparable<EventTime>, Serializable {
      * or not.
      */
     public boolean isTimeExplicit() {
-        // TODO
-        return false;
+        return is_time_explicit;
     }
 
     /**
@@ -72,26 +80,30 @@ public class EventTime implements Comparable<EventTime>, Serializable {
      * or not.
      */
     public boolean isTimeZoneExplicit() {
-        // TODO
-        return false;
+        return is_time_zone_explicit;
     }
 
     @Override
     public int compareTo(EventTime that) {
-        // TODO
-        return 0;
+        int instant_comp = this.zdt.toInstant().compareTo(that.zdt.toInstant());
+        if(instant_comp != 0) return instant_comp;
+        return (this.is_time_explicit && !that.is_time_explicit) ? 1
+            :  (!this.is_time_explicit && that.is_time_explicit) ? -1
+            : 0;
     }
     
     @Override
     public boolean equals(Object that) {
-        // TODO
-        return false;
+        if(!(that instanceof EventTime)) {
+            return false;
+        }
+        EventTime et_that = (EventTime)that;
+        return (this.compareTo(et_that) == 0);
     }
 
     @Override
     public int hashCode() {
-        // TODO
-        return 0;
+        return zdt.hashCode() + new Boolean(is_time_explicit).hashCode();
     }
 
     @Override
