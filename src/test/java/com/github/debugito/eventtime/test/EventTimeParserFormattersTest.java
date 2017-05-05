@@ -20,6 +20,7 @@ public class EventTimeParserFormattersTest {
     public void testParser() {
         testP("2017-04-20", et(2017,4,20));
         testP("2016-10-31Z", et(2016,10,31,"Z"));
+        testP("2016-04-23+00:00", et(2016,4,23,"Z"));
         testP("2016-09-11+09:00", et(2016,9,11,"+09:00"));
         testP("2016-11-22+09:00[Asia/Tokyo]", et(2016,11,22,"Asia/Tokyo"));
         testP("2016-09-10[Asia/Tokyo]", et(2016,9,10,"Asia/Tokyo"));
@@ -39,6 +40,7 @@ public class EventTimeParserFormattersTest {
     @Test
     public void testFormatter() {
         testF(et(2016,10,31, "Z"), "2016-10-31Z");
+        testF(et(2016,4,23,"+00:00"), "2016-04-23Z");
         testF(et(2016,9,11,"+09:00"), "2016-09-11+09:00");
         testF(et(2016,11,22,"Asia/Tokyo"), "2016-11-22[Asia/Tokyo]");
         testF(et(2017,1,10,0,52,10,0,"+09:00"), "2017-01-10T00:52:10+09:00");

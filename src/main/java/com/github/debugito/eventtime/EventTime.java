@@ -106,10 +106,26 @@ public class EventTime implements Comparable<EventTime>, Serializable {
         return zdt.hashCode() + new Boolean(is_time_explicit).hashCode();
     }
 
+    private static String formatZoneId(ZoneId zone_id) {
+        String zone = zone_id.toString();
+        if(zone.length() == 0) return zone;
+        char head = zone.charAt(0);
+        if(head == '+' || head == '-' || head == 'Z') {
+            return zone;
+        }else {
+            return "[" + zone + "]";
+        }
+    }
+
     @Override
     public String toString() {
-        // TODO
-        return "";
+        StringBuilder sb = new StringBuilder();
+        sb.append(zdt.toLocalDate().toString());
+        if(is_time_explicit) {
+            sb.append(zdt.toLocalTime().toString());
+        }
+        sb.append(formatZoneId(zdt.getZone()));
+        return sb.toString();
     }
 
     public static EventTime parse(CharSequence str) {
