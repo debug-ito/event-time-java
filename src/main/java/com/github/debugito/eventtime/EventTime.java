@@ -122,6 +122,7 @@ public class EventTime implements Comparable<EventTime>, Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append(zdt.toLocalDate().toString());
         if(is_time_explicit) {
+            sb.append('T');
             sb.append(zdt.toLocalTime().toString());
         }
         sb.append(formatZoneId(zdt.getZone()));
