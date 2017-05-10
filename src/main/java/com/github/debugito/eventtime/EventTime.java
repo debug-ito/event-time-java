@@ -164,16 +164,9 @@ public class EventTime implements Comparable<EventTime>, Serializable {
 
     private static ZoneId parseZone(CharSequence str) {
         if(str.length() == 0) return null;
-        char zone_head = str.charAt(0);
-        if(zone_head == 'Z') {
-            return ZoneOffset.UTC;
+        if(str.length() > 2 && str.charAt(0) == '[' && str.charAt(str.length()-1) == ']') {
+            return ZoneId.of(str.subSequence(1, str.length()-1).toString());
         }
-        if(zone_head == '+' || zone_head == '-') {
-            // TODO
-            return null;
-        }
-        // TODO
-        return null;
-        
+        return ZoneId.of(str.toString());
     }
 }
