@@ -1,7 +1,12 @@
 package com.github.debugito.eventtime;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.io.Serializable;
+import java.text.ParsePosition;
 
 public class EventTime implements Comparable<EventTime>, Serializable {
     private ZonedDateTime zdt;
@@ -58,6 +63,16 @@ public class EventTime implements Comparable<EventTime>, Serializable {
         this.zdt = zdt;
         is_time_explicit = true;
         is_time_zone_explicit = true;
+    }
+
+    static private EventTime makeEventTime(LocalDate date, LocalTime time, ZoneId time_zone) {
+        if(time == null) {
+            return new EventTime(date.getYear(), date.getMonthValue(), date.getDayOfMonth(), time_zone);
+        }else {
+            return new EventTime(date.getYear(), date.getMonthValue(), date.getDayOfMonth(),
+                                 time.getHour(), time.getMinute(), time.getSecond(), time.getNano(),
+                                 time_zone);
+        }
     }
 
     /**
@@ -130,7 +145,35 @@ public class EventTime implements Comparable<EventTime>, Serializable {
     }
 
     public static EventTime parse(CharSequence str) {
+        ParsePosition pos = new ParsePosition(0);
+        LocalDate date = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(str, pos));
+        if(str.length() <= pos.getIndex()) {
+            return makeEventTime(date, null, null);
+        }
+        LocalTime time = null;
+        if(str.charAt(pos.getIndex()) == 'T') {
+            pos.setIndex(pos.getIndex() + 1);
+            time = LocalTime.from(DateTimeFormatter.ISO_LOCAL_TIME.parse(str, pos));
+        }
+        if(str.length() <= pos.getIndex()) {
+            return makeEventTime(date, time, null);
+        }
+        ZoneId time_zone = parseZone(str.subSequence(pos.getIndex(), str.length()));
+        return makeEventTime(date, time, time_zone);
+    }
+
+    private static ZoneId parseZone(CharSequence str) {
+        if(str.length() == 0) return null;
+        char zone_head = str.charAt(0);
+        if(zone_head == 'Z') {
+            return ZoneOffset.UTC;
+        }
+        if(zone_head == '+' || zone_head == '-') {
+            // TODO
+            return null;
+        }
         // TODO
         return null;
+        
     }
 }
