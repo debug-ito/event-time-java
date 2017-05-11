@@ -57,7 +57,11 @@ public class EventTimeParserFormattersTest {
         testPE("2017-08-12T10");
         testPE("2017-09-12T19:12:");
         testPE("2017-11-19T11:12:19...");
-        // TODO more tests
+        testPE("2015-09-02X");
+        testPE("2011-11-10+abc");
+        testPE("2015-12-30[ABCDE]");
+        testPE("2015-12-30[ABCDEF");
+        testPE("2014-12-10T10:12:44.313943[Hoge/Foobar]");
     }
 
     public static void testF(EventTime etime, String exp_output) {

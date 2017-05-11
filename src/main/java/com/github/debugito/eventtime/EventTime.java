@@ -4,7 +4,9 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.io.Serializable;
 import java.text.ParsePosition;
 
@@ -158,8 +160,12 @@ public class EventTime implements Comparable<EventTime>, Serializable {
         if(str.length() <= pos.getIndex()) {
             return makeEventTime(date, time, null);
         }
-        ZoneId time_zone = parseZone(str.subSequence(pos.getIndex(), str.length()));
-        return makeEventTime(date, time, time_zone);
+        try {
+            ZoneId time_zone = parseZone(str.subSequence(pos.getIndex(), str.length()));
+            return makeEventTime(date, time, time_zone);
+        }catch(DateTimeException e) {
+            throw new DateTimeParseException("Failed to parse ZoneId", str, pos.getIndex(), e);
+        }
     }
 
     private static ZoneId parseZone(CharSequence str) {
