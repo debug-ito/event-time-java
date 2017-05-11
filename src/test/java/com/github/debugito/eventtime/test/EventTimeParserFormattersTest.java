@@ -1,8 +1,13 @@
 package com.github.debugito.eventtime.test;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static com.github.debugito.eventtime.test.Util.et;
 import org.junit.Test;
+
+import java.time.DateTimeException;
+import java.time.zone.ZoneRulesException;
+import java.time.format.DateTimeParseException;
 
 import com.github.debugito.eventtime.EventTime;
 
@@ -16,6 +21,16 @@ public class EventTimeParserFormattersTest {
         assertThat(got.getZonedDateTime().getZone(), is(exp_etime.getZonedDateTime().getZone()));
     }
 
+    public static void testPE(String input) {
+        Exception excep = null;
+        try {
+            EventTime.parse(input);
+        }catch(DateTimeParseException e) {
+            excep = e;
+        }
+        assertThat(excep, is(notNullValue()));
+    }
+
     @Test
     public void testParser() {
         testP("2017-04-20", et(2017,4,20));
@@ -24,12 +39,25 @@ public class EventTimeParserFormattersTest {
         testP("2016-09-11+09:00", et(2016,9,11,"+09:00"));
         testP("2016-09-10[Asia/Tokyo]", et(2016,9,10,"Asia/Tokyo"));
         testP("2016-11-24T19:04:00", et(2016,11,24,19,4,0,0));
+        testP("2017-09-12T19:12+02:00", et(2017,9,12,19,12,0,0,"+02:00"));
         testP("2016-11-22T04:00:32.903", et(2016,11,22,4,0,32,903000000));
         testP("2017-01-10T00:52:10+09:00", et(2017,1,10,0,52,10,0,"+09:00"));
         testP("2016-07-31T22:10:08.405Z", et(2016,7,31,22,10,8,405000000,"Z"));
         testP("2015-01-04T00:00:08.405396Z", et(2015,1,4,0,0,8,405396000,"Z"));
         testP("2007-12-03T10:15:30[Europe/Paris]", et(2007,12,3,10,15,30,0,"Europe/Paris"));
         testP("2015-06-11T00:14:09.045[Asia/Tokyo]", et(2015,6,11,0,14,9,45000000,"Asia/Tokyo"));
+    }
+
+    @Test
+    public void testParserErrors() {
+        testPE("20");
+        testPE("2017-1112");
+        testPE("abc");
+        testPE("2017--08-12");
+        testPE("2017-08-12T10");
+        testPE("2017-09-12T19:12:");
+        testPE("2017-11-19T11:12:19...");
+        // TODO more tests
     }
 
     public static void testF(EventTime etime, String exp_output) {
