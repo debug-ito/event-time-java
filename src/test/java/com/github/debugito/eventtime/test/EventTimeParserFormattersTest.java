@@ -46,6 +46,7 @@ public class EventTimeParserFormattersTest {
         testP("2015-01-04T00:00:08.405396Z", et(2015,1,4,0,0,8,405396000,"Z"));
         testP("2007-12-03T10:15:30[Europe/Paris]", et(2007,12,3,10,15,30,0,"Europe/Paris"));
         testP("2015-06-11T00:14:09.045[Asia/Tokyo]", et(2015,6,11,0,14,9,45000000,"Asia/Tokyo"));
+        testP("2011-09-01T13:00+09:00", et(2011,9,1,13,0,0,0,"+09:00"));
     }
 
     @Test
@@ -80,5 +81,6 @@ public class EventTimeParserFormattersTest {
         testF(et(2007,12,3,10,15,30,0,"Europe/Paris"), "2007-12-03T10:15:30[Europe/Paris]");
         testF(et(2015,6,11,0,14,9,45000000,"Asia/Tokyo"), "2015-06-11T00:14:09.045[Asia/Tokyo]");
         testF(et(2016,10,11,9,40,12,0,"Asia/Tokyo"), "2016-10-11T09:40:12[Asia/Tokyo]");
+        testF(et(2011,9,1,13,0,0,0,"+09:00"), "2011-09-01T13:00+09:00");
     }
 }
