@@ -1,5 +1,8 @@
 apply plugin: 'java'
 
+group = "com.github.debug-ito"
+version = "1.0"
+
 repositories {
     mavenCentral()
 }
@@ -7,4 +10,3 @@ repositories {
 dependencies {
     testCompile 'junit:junit:4.12'
 }
-
