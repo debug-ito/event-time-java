@@ -7,9 +7,22 @@
 
 If `isTimeExplicit` flag is `false`, i.e. the time part is not given to a constructor, the time part is initialized to "00:00:00".
 
+The advantage of this class is:
+
+- It models both date and date-time, which is often necessary when we think about events in our schedule.
+- It is comparable, event though it is essentially either date or date-time.
+
+
 ## Parsing and formatting
 
-TBW. It supports ISO8601, with some extension.
+`parse` method parses strings of ISO8601-like format, e.g. "2017-05-12", "2017-05-12+09:00", "2017-05-12T19:12:11+09:00". If the time zone is omitted, the system's default time zone is used.
+
+It can also parse time zone IDs, e.g. "2017-05-12T19:12:11[Asia/Tokyo]". (This is not part of ISO8601, though.)
+
+When formatting, it formats the date part only if the `isTimeExplicit` is `false`. If `isTimeExplicit` is `true`, it formats the time part, too.
+
+For detail, see the [test spec](https://github.com/debug-ito/event-time-java/blob/master/src/test/java/com/github/debugito/eventtime/test/EventTimeParserFormattersTest.java).
+
 
 ## Comparison and equality
 
@@ -17,6 +30,7 @@ TBW. It supports ISO8601, with some extension.
 
 `equals` method is consistent with `compareTo`. This means there are multiple `EventTime` instances with different time zones that equal to each other.
 
+For detail, see [test case](https://github.com/debug-ito/event-time-java/blob/master/src/test/java/com/github/debugito/eventtime/test/EventTimeComparisonTest.java).
 
 # License
 

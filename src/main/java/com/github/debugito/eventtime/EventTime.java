@@ -100,6 +100,10 @@ public class EventTime implements Comparable<EventTime>, Serializable {
         return is_time_zone_explicit;
     }
 
+    /**
+     * Compare by internal ZonedDateTime's Instants. Ties are broken
+     * by isTimeExplicit flag (flag true is bigger than flag false.)
+     */
     @Override
     public int compareTo(EventTime that) {
         int instant_comp = this.zdt.toInstant().compareTo(that.zdt.toInstant());
@@ -146,6 +150,11 @@ public class EventTime implements Comparable<EventTime>, Serializable {
         return sb.toString();
     }
 
+    /**
+     * Parse string into EventTime.
+     *
+     * @throws DateTimeParseException if it fails to parse str.
+     */
     public static EventTime parse(CharSequence str) {
         ParsePosition pos = new ParsePosition(0);
         LocalDate date = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(str, pos));
