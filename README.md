@@ -21,7 +21,7 @@ It can also parse time zone IDs, e.g. "2017-05-12T19:12:11[Asia/Tokyo]". (This i
 
 When formatting, it formats the date part only if the `isTimeExplicit` is `false`. If `isTimeExplicit` is `true`, it formats the time part, too.
 
-For detail, see the [test spec](https://github.com/debug-ito/event-time-java/blob/master/src/test/java/com/github/debugito/eventtime/test/EventTimeParserFormattersTest.java).
+For detail, see the [test spec](https://github.com/debug-ito/event-time-java/blob/master/src/test/java/com/github/debug_ito/event_time/test/EventTimeParserFormattersTest.java).
 
 
 ## Comparison and equality
@@ -30,7 +30,7 @@ For detail, see the [test spec](https://github.com/debug-ito/event-time-java/blo
 
 `equals` method is consistent with `compareTo`. This means there are multiple `EventTime` instances with different time zones that equal to each other.
 
-For detail, see [test case](https://github.com/debug-ito/event-time-java/blob/master/src/test/java/com/github/debugito/eventtime/test/EventTimeComparisonTest.java).
+For detail, see [test case](https://github.com/debug-ito/event-time-java/blob/master/src/test/java/com/github/debug_ito/event_time/test/EventTimeComparisonTest.java).
 
 # License
 

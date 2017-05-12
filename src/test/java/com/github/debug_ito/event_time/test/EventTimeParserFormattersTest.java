@@ -1,15 +1,15 @@
-package com.github.debugito.eventtime.test;
+package com.github.debug_ito.event_time.test;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static com.github.debugito.eventtime.test.Util.et;
+import static com.github.debug_ito.event_time.test.Util.et;
 import org.junit.Test;
 
 import java.time.DateTimeException;
 import java.time.zone.ZoneRulesException;
 import java.time.format.DateTimeParseException;
 
-import com.github.debugito.eventtime.EventTime;
+import com.github.debug_ito.event_time.EventTime;
 
 public class EventTimeParserFormattersTest {
     public static void testP(String input, EventTime exp_etime) {

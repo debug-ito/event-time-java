@@ -1,12 +1,12 @@
-package com.github.debugito.eventtime.test;
+package com.github.debug_ito.event_time.test;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
-import static com.github.debugito.eventtime.test.Util.et;
+import static com.github.debug_ito.event_time.test.Util.et;
 import org.junit.Test;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
 
-import com.github.debugito.eventtime.EventTime;
+import com.github.debug_ito.event_time.EventTime;
 
 public class EventTimeAccessorsTest {
     public static ZonedDateTime zdt(int y, int m, int d, int H, int M, int S, int ns, String zone) {

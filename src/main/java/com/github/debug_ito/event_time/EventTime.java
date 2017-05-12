@@ -1,4 +1,4 @@
-package com.github.debugito.eventtime;
+package com.github.debug_ito.event_time;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;

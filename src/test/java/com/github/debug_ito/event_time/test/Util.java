@@ -1,7 +1,7 @@
-package com.github.debugito.eventtime.test;
+package com.github.debug_ito.event_time.test;
 import java.time.ZoneId;
 
-import com.github.debugito.eventtime.EventTime;
+import com.github.debug_ito.event_time.EventTime;
 
 public class Util {
     public static EventTime et(int year, int month, int day_of_month, String zone_id) {
