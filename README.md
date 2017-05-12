@@ -1,8 +1,6 @@
 
 # EventTime = ZonedDateTime × isTimeExplicit
 
-**This project is now under development.**
-
 `EventTime` is a simple, concrete and immutable Java class that is essentially a `java.time.ZonedDateTime` with a flag that indicates if the time part is explicit or not.
 
 If `isTimeExplicit` flag is `false`, i.e. the time part is not given to a constructor, the time part is initialized to "00:00:00".
