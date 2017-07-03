@@ -55,6 +55,7 @@ For detail, see [test case](https://github.com/debug-ito/event-time-java/blob/ma
 # Project structure
 
 - `event-time`: the core `EventTime` class with lightest dependency.
+- `event-time-titan`: `EventTime`'s AttributeSerializer for [Titan Graph Database](http://titan.thinkaurelius.com/). See http://s3.thinkaurelius.com/docs/titan/1.0.0/serializer.html
 
 
 # License
