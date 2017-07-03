@@ -1,0 +1,5 @@
+
+dependencies {
+    compile project(':event-time')
+    compile 'com.thinkaurelius.titan:titan-core:1.0.0'
+}
