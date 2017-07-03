@@ -51,6 +51,12 @@ For detail, see the [test spec](https://github.com/debug-ito/event-time-java/blo
 
 For detail, see [test case](https://github.com/debug-ito/event-time-java/blob/master/src/test/java/com/github/debug_ito/event_time/test/EventTimeComparisonTest.java).
 
+
+# Project structure
+
+- `event-time`: the core `EventTime` class with lightest dependency.
+
+
 # License
 
 Copyright 2017 Toshio Ito <debug.ito@gmail.com>
